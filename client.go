@@ -49,6 +49,8 @@ type Client interface {
 	CreateBonus(context.Context, *CreateBonusInput) (*CreateBonusOutput, error)
 	GetRedemption(context.Context, *GetRedemptionInput) (*GetRedemptionOutput, error)
 	ListRedemptions(context.Context, *ListRedemptionsInput) (*ListRedemptionsOutput, error)
+	GetReward(context.Context, *GetRewardInput) (*GetRewardOutput, error)
+	ListRewards(context.Context, *ListRewardsInput) (*ListRewardsOutput, error)
 }
 
 type apiClient struct {
