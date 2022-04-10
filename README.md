@@ -84,34 +84,36 @@ if err != nil {
 
 The SDK does not yet cover all of the Bonus.ly API yet. Based on the [official API documentation](https://bonusly.docs.apiary.io/#), the following list provides an overview of all the features and their current implementation status.
 
+At the moment we are working on implementing all the features except SCIM, which will follow later. Current progress can be tracked using the [All Non-SCIM Features Implemented](https://github.com/groundfoghub/bonusly-sdk-go/milestone/1) milestone.
+
 Legend:
 * :white_check_mark: Implemented.
 * :warning: Partially implemented or can not be exactly fully implemented.
 * :no_entry: Not implemented yet.
 
 **Achievements**
-* :no_entry: List Achievements (Issue: #1)
+* :no_entry: List Achievements (Issue: [#6](https://github.com/groundfoghub/bonusly-sdk-go/issues/6))
 
 **Analytics**
-* :no_entry: Trends | Index
-* :no_entry: Leaderboards | Index
+* :no_entry: Trends | Index (Issue: [#7](https://github.com/groundfoghub/bonusly-sdk-go/issues/7))
+* :no_entry: Leaderboards | Index (Issue: [#8](https://github.com/groundfoghub/bonusly-sdk-go/issues/8))
 
 **API Keys**
-* :no_entry: List API Keys
-* :no_entry: Create API Key
-* :no_entry: Cancel API Key
+* :no_entry: List API Keys (Issue: [#9](https://github.com/groundfoghub/bonusly-sdk-go/issues/9))
+* :no_entry: Create API Key (Issue: [#10](https://github.com/groundfoghub/bonusly-sdk-go/issues/10))
+* :no_entry: Cancel API Key (Issue: [#11](https://github.com/groundfoghub/bonusly-sdk-go/issues/11))
 
 **Bonuses**
-* :no_entry: List Bonuses
+* :no_entry: List Bonuses (Issue: [#12](https://github.com/groundfoghub/bonusly-sdk-go/issues/12))
 * :white_check_mark: Create a Bonus
 * :warning: Create a Bonus with separate fields fo reason, hashtag, receiver and amount
-* :no_entry: Retrieve a Bonus
-* :no_entry: Update a Bonus
-* :no_entry: Delete a Bonus
+* :no_entry: Retrieve a Bonus (Issue: [#13](https://github.com/groundfoghub/bonusly-sdk-go/issues/13))
+* :no_entry: Update a Bonus (Issue: [#14](https://github.com/groundfoghub/bonusly-sdk-go/issues/14))
+* :no_entry: Delete a Bonus (Issue: [#15](https://github.com/groundfoghub/bonusly-sdk-go/issues/15))
 
 **Company**
-* :no_entry: Retrieve a Company
-* :no_entry: [ADMIN] Update a Company
+* :no_entry: Retrieve a Company (Issue: [#16](https://github.com/groundfoghub/bonusly-sdk-go/issues/16))
+* :no_entry: [ADMIN] Update a Company (Issue: [#17](https://github.com/groundfoghub/bonusly-sdk-go/issues/17))
 
 **Redemptions**
 * :white_check_mark: List Redemptions
@@ -134,15 +136,15 @@ Legend:
 **Users**
 * :white_check_mark: List Users
 * :white_check_mark: Retrieve a User
-* :no_entry: Me
-* :no_entry: Autocomplete
-* :no_entry: Bonuses
-* :no_entry: Achievements
-* :no_entry: Redemptions
-* :no_entry: Create a Redemption
-* :no_entry: [ADMIN] Create a User
-* :no_entry: [ADMIN] Update a User
-* :no_entry: [ADMIN] Deactivate a User
+* :no_entry: Me (Issue: [#18](https://github.com/groundfoghub/bonusly-sdk-go/issues/18))
+* :no_entry: Autocomplete (Issue: [#19](https://github.com/groundfoghub/bonusly-sdk-go/issues/19))
+* :no_entry: Bonuses (Issue: [#20](https://github.com/groundfoghub/bonusly-sdk-go/issues/20))
+* :no_entry: Achievements (Issue: [#21](https://github.com/groundfoghub/bonusly-sdk-go/issues/21))
+* :no_entry: Redemptions (Issue: [#22](https://github.com/groundfoghub/bonusly-sdk-go/issues/22))
+* :no_entry: Create a Redemption (Issue: [#23](https://github.com/groundfoghub/bonusly-sdk-go/issues/23))
+* :no_entry: [ADMIN] Create a User (Issue: [#24](https://github.com/groundfoghub/bonusly-sdk-go/issues/24))
+* :no_entry: [ADMIN] Update a User (Issue: [#25](https://github.com/groundfoghub/bonusly-sdk-go/issues/25))
+* :no_entry: [ADMIN] Deactivate a User(Issue: [#26](https://github.com/groundfoghub/bonusly-sdk-go/issues/26))
 
 **Webhooks**
 * :white_check_mark: List Webhooks
