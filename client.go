@@ -51,6 +51,10 @@ type Client interface {
 	ListRedemptions(context.Context, *ListRedemptionsInput) (*ListRedemptionsOutput, error)
 	GetReward(context.Context, *GetRewardInput) (*GetRewardOutput, error)
 	ListRewards(context.Context, *ListRewardsInput) (*ListRewardsOutput, error)
+	ListWebhooks(context.Context) (*ListWebhooksOutput, error)
+	CreateWebhook(context.Context, *CreateWebhookInput) (*CreateWebhookOutput, error)
+	UpdateWebhook(context.Context, *UpdateWebhookInput) (*UpdateWebhookOutput, error)
+	DeleteWebhook(context.Context, *DeleteWebhookInput) (*DeleteWebhookOutput, error)
 }
 
 type apiClient struct {
