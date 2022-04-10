@@ -145,10 +145,10 @@ Legend:
 * :no_entry: [ADMIN] Deactivate a User
 
 **Webhooks**
-* :no_entry: List Webhooks
-* :no_entry: Create Webhook
-* :no_entry: Update Webhook
-* :no_entry: Remove Webhook
+* :white_check_mark: List Webhooks
+* :white_check_mark: Create Webhook
+* :white_check_mark: Update Webhook
+* :white_check_mark: Remove Webhook
 
 ## :pencil2: Documentation
 [(Back to top)](#table-of-contents)
