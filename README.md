@@ -90,7 +90,7 @@ Legend:
 * :no_entry: Not implemented yet.
 
 **Achievements**
-* :no_entry: List Achievements
+* :no_entry: List Achievements (Issue: #1)
 
 **Analytics**
 * :no_entry: Trends | Index
