@@ -1,6 +1,7 @@
 package bonusly
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -166,6 +167,45 @@ func TestUser_UnmarshalUserMode(t *testing.T) {
 	}
 }
 
+type mockClient struct {
+	pages []*ListUsersOutput
+	err   error
+	c     int
+}
+
+func (m *mockClient) ListUsers(context.Context, *ListUsersInput) (*ListUsersOutput, error) {
+	p := m.pages[m.c]
+	m.c++
+
+	return p, m.err
+}
+
+func TestListUsersPaginator(t *testing.T) {
+	client := &mockClient{
+		pages: []*ListUsersOutput{
+			{Users: newUsers(t, 20)},
+			{Users: newUsers(t, 20)},
+			{Users: newUsers(t, 5)},
+		},
+	}
+
+	var users []User
+
+	paginator := NewListUsersPaginator(client, nil)
+	for paginator.HasMorePages() {
+		output, err := paginator.NextPage(context.TODO())
+		if err != nil {
+			t.Fatalf("%v", err)
+		}
+
+		users = append(users, output.Users...)
+	}
+
+	if len(users) != 45 {
+		t.Errorf("ListUsersPaginator(), got = %d, want = %d", len(users), 45)
+	}
+}
+
 func mustURL(t *testing.T, rawURL string) *url.URL {
 	t.Helper()
 
@@ -175,6 +215,17 @@ func mustURL(t *testing.T, rawURL string) *url.URL {
 	}
 
 	return u
+}
+
+func newUsers(t *testing.T, num int) []User {
+	t.Helper()
+
+	var users []User
+	for i := 0; i < num; i++ {
+		users = append(users, User{BaseUser{Id: fmt.Sprintf("%d", i)}})
+	}
+
+	return users
 }
 
 func Test_newListUsersURL(t *testing.T) {

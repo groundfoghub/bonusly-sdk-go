@@ -190,7 +190,7 @@ type ListUsersPaginator struct {
 
 func NewListUsersPaginator(client ListUsersPaginatorClient, params *ListUsersInput) *ListUsersPaginator {
 	if params == nil {
-		params = &ListUsersInput{}
+		params = &ListUsersInput{Limit: 20}
 	}
 
 	return &ListUsersPaginator{
