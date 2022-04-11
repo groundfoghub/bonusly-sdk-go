@@ -218,7 +218,7 @@ func (p *ListUsersPaginator) NextPage(ctx context.Context) (*ListUsersOutput, er
 	return output, nil
 }
 
-func (c *apiClient) ListUsers(ctx context.Context, params *ListUsersInput) (*ListUsersOutput, error) {
+func (c *Client) ListUsers(ctx context.Context, params *ListUsersInput) (*ListUsersOutput, error) {
 	if params == nil {
 		params = &ListUsersInput{}
 	}
@@ -338,7 +338,7 @@ type ExtendedUser struct {
 	LifeTimeEarningsWithCurrency string `json:"lifetime_earnings_with_currency"`
 }
 
-func (c *apiClient) GetUser(ctx context.Context, params *GetUserInput) (*GetUserOutput, error) {
+func (c *Client) GetUser(ctx context.Context, params *GetUserInput) (*GetUserOutput, error) {
 	if params == nil {
 		return nil, ErrMissingUserId
 	}

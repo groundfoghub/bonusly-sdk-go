@@ -65,7 +65,7 @@ type ListWebhooksOutput struct {
 // ListWebhooks returns all webhooks.
 //
 // Note: The Bonus.ly API does not support pagination for this API. Therefore, no paginator exists.
-func (c *apiClient) ListWebhooks(ctx context.Context) (*ListWebhooksOutput, error) {
+func (c *Client) ListWebhooks(ctx context.Context) (*ListWebhooksOutput, error) {
 	u := fmt.Sprintf("%s/webhooks", c.endpoint)
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, u, nil)
 	if err != nil {
@@ -117,7 +117,7 @@ type CreateWebhookOutput struct {
 }
 
 // CreateWebhook creates a new webhook.
-func (c *apiClient) CreateWebhook(ctx context.Context, params *CreateWebhookInput) (*CreateWebhookOutput, error) {
+func (c *Client) CreateWebhook(ctx context.Context, params *CreateWebhookInput) (*CreateWebhookOutput, error) {
 	if params == nil {
 		return nil, fmt.Errorf("params missing")
 	}
@@ -209,7 +209,7 @@ type UpdateWebhookOutput struct {
 }
 
 // UpdateWebhook updates a single webhook.
-func (c *apiClient) UpdateWebhook(ctx context.Context, params *UpdateWebhookInput) (*UpdateWebhookOutput, error) {
+func (c *Client) UpdateWebhook(ctx context.Context, params *UpdateWebhookInput) (*UpdateWebhookOutput, error) {
 	if params == nil {
 		return nil, fmt.Errorf("params missing")
 	}
@@ -270,7 +270,7 @@ type DeleteWebhookOutput struct {
 }
 
 // DeleteWebhook deletes a webhook with the provided id.
-func (c *apiClient) DeleteWebhook(ctx context.Context, params *DeleteWebhookInput) (*DeleteWebhookOutput, error) {
+func (c *Client) DeleteWebhook(ctx context.Context, params *DeleteWebhookInput) (*DeleteWebhookOutput, error) {
 	if params == nil {
 		return nil, fmt.Errorf("params missing")
 	}
