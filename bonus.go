@@ -32,7 +32,7 @@ type createBonusResponse struct {
 	Message string `json:"message,omitempty"`
 }
 
-func (c *apiClient) CreateBonus(ctx context.Context, params *CreateBonusInput) (*CreateBonusOutput, error) {
+func (c *Client) CreateBonus(ctx context.Context, params *CreateBonusInput) (*CreateBonusOutput, error) {
 	// TODO: Add option that allows overwriting the formatting of the reason string.
 	b := createBonusBody{
 		GiverEmail:    params.GiverEmail,

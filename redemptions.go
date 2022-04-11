@@ -77,7 +77,7 @@ func (p *ListRedemptionsPaginator) NextPage(ctx context.Context) (*ListRedemptio
 	return output, nil
 }
 
-func (c *apiClient) ListRedemptions(ctx context.Context, params *ListRedemptionsInput) (*ListRedemptionsOutput, error) {
+func (c *Client) ListRedemptions(ctx context.Context, params *ListRedemptionsInput) (*ListRedemptionsOutput, error) {
 	if params == nil {
 		params = &ListRedemptionsInput{
 			Limit: 100,
@@ -154,7 +154,7 @@ type GetRedemptionRedemption struct {
 	} `json:"reward_details"`
 }
 
-func (c *apiClient) GetRedemption(ctx context.Context, params *GetRedemptionInput) (*GetRedemptionOutput, error) {
+func (c *Client) GetRedemption(ctx context.Context, params *GetRedemptionInput) (*GetRedemptionOutput, error) {
 	if params == nil {
 		return nil, fmt.Errorf("id missing")
 	}

@@ -85,7 +85,7 @@ type listRewardsResponse struct {
 	Result []listRewardResponseResult `json:"result"`
 }
 
-func (c *apiClient) ListRewards(ctx context.Context, params *ListRewardsInput) (*ListRewardsOutput, error) {
+func (c *Client) ListRewards(ctx context.Context, params *ListRewardsInput) (*ListRewardsOutput, error) {
 	if params == nil {
 		params = &ListRewardsInput{}
 	}
@@ -221,7 +221,7 @@ type GetRewardReward struct {
 	Type           string `json:"type"`
 }
 
-func (c *apiClient) GetReward(ctx context.Context, params *GetRewardInput) (*GetRewardOutput, error) {
+func (c *Client) GetReward(ctx context.Context, params *GetRewardInput) (*GetRewardOutput, error) {
 	if params == nil {
 		return nil, fmt.Errorf("user id missing")
 	}
