@@ -299,11 +299,11 @@ func newListUsersURL(endpoint Endpoint, params *ListUsersInput) (*url.URL, error
 	}
 
 	if params.IncludeArchived {
-		q.Add("include_archived", strconv.FormatBool(params.IncludeArchived))
+		q.Add("include_archived", "true")
 	}
 
 	if params.ShowFinancialData {
-		q.Add("show_financial_data", strconv.FormatBool(params.ShowFinancialData))
+		q.Add("show_financial_data", "true")
 	}
 
 	if params.UserMode != "" {
