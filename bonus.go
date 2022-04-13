@@ -5,7 +5,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"strings"
 )
@@ -59,9 +58,8 @@ func (c *Client) CreateBonus(ctx context.Context, params *CreateBonusInput) (*Cr
 	if err != nil {
 		return nil, err
 	}
-	defer closeCloser(resp.Body)
 
-	respBody, err := ioutil.ReadAll(resp.Body)
+	respBody, err := readAndCloseBody(resp)
 	if err != nil {
 		return nil, err
 	}

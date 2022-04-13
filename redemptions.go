@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -103,9 +102,8 @@ func (c *Client) ListRedemptions(ctx context.Context, params *ListRedemptionsInp
 	if err != nil {
 		return nil, err
 	}
-	defer closeCloser(resp.Body)
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := readAndCloseBody(resp)
 	if err != nil {
 		return nil, err
 	}
@@ -173,9 +171,8 @@ func (c *Client) GetRedemption(ctx context.Context, params *GetRedemptionInput) 
 	if err != nil {
 		return nil, err
 	}
-	defer closeCloser(resp.Body)
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := readAndCloseBody(resp)
 	if err != nil {
 		return nil, err
 	}
