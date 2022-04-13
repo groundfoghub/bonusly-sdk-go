@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -239,9 +238,8 @@ func (c *Client) ListUsers(ctx context.Context, params *ListUsersInput) (*ListUs
 	if err != nil {
 		return nil, err
 	}
-	defer closeCloser(resp.Body)
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := readAndCloseBody(resp)
 	if err != nil {
 		return nil, err
 	}
@@ -356,9 +354,8 @@ func (c *Client) GetUser(ctx context.Context, params *GetUserInput) (*GetUserOut
 	if err != nil {
 		return nil, err
 	}
-	defer closeCloser(resp.Body)
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := readAndCloseBody(resp)
 	if err != nil {
 		return nil, err
 	}

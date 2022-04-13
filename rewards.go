@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 )
@@ -111,9 +110,8 @@ func (c *Client) ListRewards(ctx context.Context, params *ListRewardsInput) (*Li
 	if err != nil {
 		return nil, err
 	}
-	defer closeCloser(resp.Body)
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := readAndCloseBody(resp)
 	if err != nil {
 		return nil, err
 	}
@@ -266,9 +264,8 @@ func (c *Client) GetReward(ctx context.Context, params *GetRewardInput) (*GetRew
 	if err != nil {
 		return nil, err
 	}
-	defer closeCloser(resp.Body)
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := readAndCloseBody(resp)
 	if err != nil {
 		return nil, err
 	}

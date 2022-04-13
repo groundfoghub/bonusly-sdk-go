@@ -2,7 +2,7 @@ package bonusly
 
 import (
 	"fmt"
-	"io"
+	"io/ioutil"
 	"net/http"
 )
 
@@ -124,14 +124,36 @@ type Configuration struct {
 	Token string
 }
 
-func closeCloser(c io.Closer) {
-	err := c.Close()
-	if err != nil {
-		panic(err)
-	}
-}
-
 type baseAPIResponse struct {
 	Success bool   `json:"success"`
 	Message string `json:"message,omitempty"`
+}
+
+// readAndCloseBody returns the body of the given *http.Response.
+//
+// After reading the body it will be closed. If reading the body and closing the body cause an error the returned error
+// will contain both errors.
+func readAndCloseBody(r *http.Response) ([]byte, error) {
+	if r == nil {
+		return nil, fmt.Errorf("response is nil")
+	}
+
+	// Note: ioutil.ReadAll is deprecated and should be replaced with io.ReadAll. But since our minimum Go version is
+	// 1.13 we have to use ioutil.ReadAll, since io.ReadAll was added in 1.16.
+	b, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		cerr := r.Body.Close()
+		if cerr != nil {
+			return nil, fmt.Errorf("response body close error: %v, original error: %w", cerr, err)
+		}
+
+		return nil, err
+	}
+
+	err = r.Body.Close()
+	if err != nil {
+		return nil, err
+	}
+
+	return b, nil
 }

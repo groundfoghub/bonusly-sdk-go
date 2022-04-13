@@ -5,7 +5,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 )
@@ -76,9 +75,8 @@ func (c *Client) ListWebhooks(ctx context.Context) (*ListWebhooksOutput, error) 
 	if err != nil {
 		return nil, err
 	}
-	defer closeCloser(resp.Body)
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := readAndCloseBody(resp)
 	if err != nil {
 		return nil, err
 	}
@@ -145,9 +143,8 @@ func (c *Client) CreateWebhook(ctx context.Context, params *CreateWebhookInput) 
 	if err != nil {
 		return nil, err
 	}
-	defer closeCloser(resp.Body)
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := readAndCloseBody(resp)
 	if err != nil {
 		return nil, err
 	}
@@ -229,9 +226,8 @@ func (c *Client) UpdateWebhook(ctx context.Context, params *UpdateWebhookInput) 
 	if err != nil {
 		return nil, err
 	}
-	defer closeCloser(resp.Body)
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := readAndCloseBody(resp)
 	if err != nil {
 		return nil, err
 	}
@@ -285,9 +281,8 @@ func (c *Client) DeleteWebhook(ctx context.Context, params *DeleteWebhookInput) 
 	if err != nil {
 		return nil, err
 	}
-	defer closeCloser(resp.Body)
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := readAndCloseBody(resp)
 	if err != nil {
 		return nil, err
 	}
