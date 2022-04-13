@@ -85,31 +85,22 @@ type listRewardsResponse struct {
 	Result []listRewardResponseResult `json:"result"`
 }
 
+// ListRewards returns the list of available rewards.
+//
+// The params parameter can be nil, which will cause the operation to use the default parameters for the operation.
+//
+// Note: This operation does not support pagination.
+//
+// See: https://bonusly.docs.apiary.io/#reference/0/rewards/list-rewards
 func (c *Client) ListRewards(ctx context.Context, params *ListRewardsInput) (*ListRewardsOutput, error) {
 	if params == nil {
 		params = &ListRewardsInput{}
 	}
 
-	u, err := url.Parse(fmt.Sprintf("%s/rewards", c.endpoint))
+	u, err := newListRewardsURL(c.endpoint, params)
 	if err != nil {
 		return nil, err
 	}
-
-	q := u.Query()
-
-	if params.CatalogCountry != "" {
-		q.Add("catalog_country", params.CatalogCountry)
-	}
-
-	if params.RequestCountry != "" {
-		q.Add("request_country", params.RequestCountry)
-	}
-
-	if params.PersonalizeFor != "" {
-		q.Add("personalize_for", params.PersonalizeFor)
-	}
-
-	u.RawQuery = q.Encode()
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, u.String(), nil)
 	if err != nil {
@@ -142,12 +133,39 @@ func (c *Client) ListRewards(ctx context.Context, params *ListRewardsInput) (*Li
 	return &ListRewardsOutput{Rewards: rewards}, nil
 }
 
+// newListRewardsURL returns the URL to get a list of rewards (ListRewards) based on the provided endpoint and params.
+// If the URL can not be created a non-nil error is returned and the URL is nil.
+func newListRewardsURL(endpoint Endpoint, params *ListRewardsInput) (*url.URL, error) {
+	u, err := url.Parse(fmt.Sprintf("%s/rewards", endpoint))
+	if err != nil {
+		return nil, err
+	}
+
+	q := u.Query()
+
+	if params.CatalogCountry != "" {
+		q.Add("catalog_country", params.CatalogCountry)
+	}
+
+	if params.RequestCountry != "" {
+		q.Add("request_country", params.RequestCountry)
+	}
+
+	if params.PersonalizeFor != "" {
+		q.Add("personalize_for", params.PersonalizeFor)
+	}
+
+	u.RawQuery = q.Encode()
+
+	return u, err
+}
+
 func newRewards(resp listRewardsResponse) []ListRewardsReward {
 	rewards := make([]ListRewardsReward, 0)
 
 	for i := range resp.Result {
-		for _, r := range resp.Result[i].Rewards {
-			iu, err := url.Parse(r.ImageUrl)
+		for j := range resp.Result[i].Rewards {
+			iu, err := url.Parse(resp.Result[i].Rewards[j].ImageUrl)
 			if err != nil {
 				// TODO: Do not just drop the error.
 				continue
@@ -155,15 +173,15 @@ func newRewards(resp listRewardsResponse) []ListRewardsReward {
 
 			rewards = append(rewards, ListRewardsReward{
 				Type:                newRewardType(resp.Result[i].Type),
-				Name:                r.Name,
+				Name:                resp.Result[i].Rewards[j].Name,
 				ImageUrl:            iu,
-				MinimumDisplayPrice: r.MinimumDisplayPrice,
-				DescriptionText:     r.Description.Text,
-				DescriptionHTML:     r.Description.Html,
-				DisclaimerHTML:      r.DisclaimerHtml,
-				Warning:             r.Warning,
-				Categories:          r.Categories,
-				Denominations:       newDenominations(r.Denominations),
+				MinimumDisplayPrice: resp.Result[i].Rewards[j].MinimumDisplayPrice,
+				DescriptionText:     resp.Result[i].Rewards[j].Description.Text,
+				DescriptionHTML:     resp.Result[i].Rewards[j].Description.Html,
+				DisclaimerHTML:      resp.Result[i].Rewards[j].DisclaimerHtml,
+				Warning:             resp.Result[i].Rewards[j].Warning,
+				Categories:          resp.Result[i].Rewards[j].Categories,
+				Denominations:       newDenominations(resp.Result[i].Rewards[j].Denominations),
 			})
 		}
 	}

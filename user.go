@@ -265,6 +265,9 @@ func (c *Client) ListUsers(ctx context.Context, params *ListUsersInput) (*ListUs
 	return &ListUsersOutput{Users: r.Result}, nil
 }
 
+// newListUsersURL returns the URL to get a list of users (ListUsers) based on the provided endpoint and params. If the
+// URL can not be created a non-nil error is returned and the URL is nil.
+//nolint: cyclop
 func newListUsersURL(endpoint Endpoint, params *ListUsersInput) (*url.URL, error) {
 	u, err := url.Parse(fmt.Sprintf("%s/users", endpoint))
 	if err != nil {

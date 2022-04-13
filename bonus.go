@@ -52,7 +52,7 @@ func (c *Client) CreateBonus(ctx context.Context, params *CreateBonusInput) (*Cr
 	req.Header.Add("Content-Type", "application/json")
 
 	if ctx != nil {
-		req.WithContext(ctx)
+		req = req.WithContext(ctx)
 	}
 
 	resp, err := c.Do(req)
