@@ -78,6 +78,26 @@ if err != nil {
     fmt.Println("create bonus: ", err)
 }
 ```
+**Receive Achievements**
+
+You'll need an admin token to make this example work
+
+```go
+config := bonusly.Configuration{Token: "<your-access-token>"}
+client := bonusly.New(config)
+
+// Receives 50 most recent achievements 
+achievements, err := bonusly.GetAchivements()
+
+if err != nil {
+    fmt.Println("create bonus: ", err)
+}
+
+for _, achievement := range achievements {
+    // Do something with the achievement
+}
+
+```
 
 ## :white_check_mark: Implementation Status
 [(Back to top)](#table-of-contents)
@@ -92,7 +112,7 @@ Legend:
 * :no_entry: Not implemented yet.
 
 **Achievements**
-* :no_entry: List Achievements (Issue: [#6](https://github.com/groundfoghub/bonusly-sdk-go/issues/6))
+* :white_check_mark: List Achievements
 
 **Analytics**
 * :no_entry: Trends | Index (Issue: [#7](https://github.com/groundfoghub/bonusly-sdk-go/issues/7))
