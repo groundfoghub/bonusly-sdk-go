@@ -41,7 +41,12 @@ func (client *Client) GetAchivements() ([]Achievement, error) {
 		return make([]Achievement, 0), requestErr
 	}
 
-	defer resp.Body.Close()
+	var closingErr error
+
+	defer func() {
+		closingErr = resp.Body.Close()
+	}()
+
 	responseBody, bodyReadingErr := ioutil.ReadAll(resp.Body)
 
 	if bodyReadingErr != nil {
@@ -53,6 +58,10 @@ func (client *Client) GetAchivements() ([]Achievement, error) {
 
 	if jsonParsingErr != nil {
 		return make([]Achievement, 0), jsonParsingErr
+	}
+
+	if closingErr != nil {
+		return archivements.Results, closingErr
 	}
 
 	return archivements.Results, nil
