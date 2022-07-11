@@ -41,28 +41,31 @@ func (client *Client) GetAchivements() ([]Achievement, error) {
 		return make([]Achievement, 0), requestErr
 	}
 
-	var closingErr error
+	bodyMessage, readErr := readBody(resp)
 
-	defer func() {
-		closingErr = resp.Body.Close()
-	}()
-
-	responseBody, bodyReadingErr := ioutil.ReadAll(resp.Body)
-
-	if bodyReadingErr != nil {
-		return make([]Achievement, 0), bodyReadingErr
+	if readErr != nil {
+		return make([]Achievement, 0), readErr
 	}
 
 	var archivements achivementResponse
-	jsonParsingErr := json.Unmarshal([]byte(responseBody), &archivements)
+	jsonParsingErr := json.Unmarshal([]byte(bodyMessage), &archivements)
 
 	if jsonParsingErr != nil {
 		return make([]Achievement, 0), jsonParsingErr
 	}
 
-	if closingErr != nil {
-		return archivements.Results, closingErr
-	}
-
 	return archivements.Results, nil
+}
+
+func readBody(resp *http.Response) (body []byte, err error) {
+	defer func() {
+		if tempErr := close(resp); tempErr != nil {
+			err = tempErr
+		}
+	}()
+	return ioutil.ReadAll(resp.Body)
+}
+
+func close(resp *http.Response) error {
+	return resp.Body.Close()
 }
