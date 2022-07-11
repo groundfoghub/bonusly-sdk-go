@@ -59,13 +59,13 @@ func (client *Client) GetAchivements() ([]Achievement, error) {
 
 func readBody(resp *http.Response) (body []byte, err error) {
 	defer func() {
-		if tempErr := close(resp); tempErr != nil {
+		if tempErr := closeResponseBody(resp); tempErr != nil {
 			err = tempErr
 		}
 	}()
 	return ioutil.ReadAll(resp.Body)
 }
 
-func close(resp *http.Response) error {
+func closeResponseBody(resp *http.Response) error {
 	return resp.Body.Close()
 }
